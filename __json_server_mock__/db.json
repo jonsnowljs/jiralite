@@ -1,3 +1,52 @@
 {
-  "users": []
+  "users": [
+    {
+      "id": 1,
+      "name": "Jason"
+    },
+    {
+      "id": 2,
+      "name": "Jack"
+    },
+    {
+      "id": 3,
+      "name": "Tom"
+    },
+    {
+      "id": 4,
+      "name": "David"
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "name": "Jira",
+      "personId": 1,
+      "organization": "Project Development Department"
+    },
+    {
+      "id": 2,
+      "name": "Slack",
+      "personId": 2,
+      "organization": "Project Maintain Department"
+    },
+    {
+      "id": 3,
+      "name": "Bitbucket",
+      "personId": 2,
+      "organization": "Open Source Department"
+    },
+    {
+      "id": 4,
+      "name": "Gitlab",
+      "personId": 3,
+      "organization": "Open Source Department"
+    },
+    {
+      "id": 5,
+      "name": "Atlassian",
+      "personId": 4,
+      "organization": "Project Development Department"
+    }
+  ]
 }
