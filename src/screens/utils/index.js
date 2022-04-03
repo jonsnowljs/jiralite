@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 // '!0'is true, '!1' is false
 // '!!'means get the boolean value of a value
 export const isFalsy = (value) => (value === 0 ? false : !value);
@@ -18,4 +19,25 @@ export const cleanObject = (object) => {
   });
 
   return result;
+};
+
+// Custom hook: execute callback function when the page first mount
+export const useMount = (callback) => {
+  useEffect(() => {
+    callback();
+  }, []);
+};
+
+// Custom hook: prevent the function running several times before executing.
+export const useDebounce = (value, delay) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    // when value change we set up an timeout for it
+    const timeout = setTimeout(() => setDebouncedValue(value), delay);
+    // after the execution of previous useEffect. the return function will execute
+    return () => clearTimeout(timeout);
+  }, [value, delay]);
+
+  return debouncedValue;
 };

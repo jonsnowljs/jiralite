@@ -3,7 +3,7 @@ import React, { useState, useEffect} from "react";
 export const SearchPanel = ({users, param, setParam}) => {
 
   
-  return <form action="">
+  return <form>
     <div>
       <input type='text' value={param.name} onChange={evt => setParam({
         ...param,
