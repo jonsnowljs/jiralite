@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 // '!0'is true, '!1' is false
 // '!!'means get the boolean value of a value
-export const isFalsy = (value: any) => (value === 0 ? false : !value);
+// compare to any , unkown type can be any value like any, but when you use it call some method, it will have more restriction
+export const isFalsy: (value: unknown) => boolean = (value) =>
+  value === 0 ? false : !value;
 
 // It's a bad design if your change the passed in object's value directly, it will change the original one as well
 // This function will delete empty property from the passed in object
@@ -32,7 +34,7 @@ export const useMount = (callback: () => void) => {
 
 // Custom hook: prevent the function running several times before executing.
 // TS: `?:` means it's optional
-export const useDebounce = (value: any, delay?: number) => {
+export const useDebounce = <V>(value: V, delay?: number) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
 
   useEffect(() => {
