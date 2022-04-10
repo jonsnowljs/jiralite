@@ -1,18 +1,10 @@
+import { useAuth } from "context/AuthContext";
 import React from "react";
 
 const apiurl = process.env.REACT_APP_API_URL;
 
 export const LoginScreen = () => {
-  const login = (param: { username: string; password: string }) => {
-    fetch(`${apiurl}/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(param),
-    }).then(async (response: Response) => {
-      if (response.ok) {
-      }
-    });
-  };
+  const { login, user } = useAuth();
 
   // HTMLFormElement extends Element
   // Interface Oriented: duck typing. As long as the field in the interface are same. Typescript would have compile error
@@ -28,6 +20,8 @@ export const LoginScreen = () => {
 
   return (
     <form onSubmit={handleSubmit}>
+      {user ? <div> Logged in, Username: {user?.name}</div> : null}
+
       <div>
         <label htmlFor="username">Username</label>
         <input type="text" id="username" />
@@ -36,7 +30,7 @@ export const LoginScreen = () => {
         <label htmlFor="username">Password</label>
         <input type="password" id="password" />
       </div>
-      <button type="submit">Login</button>
+      <button type="submit">login</button>
     </form>
   );
 };
