@@ -29,7 +29,7 @@ export const LoginScreen = () => {
       </Form.Item>
       <Form.Item>
         <LongButton htmlType={"submit"} type={"primary"}>
-          Login
+          Logi
         </LongButton>
       </Form.Item>
     </Form>

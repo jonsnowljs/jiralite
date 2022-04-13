@@ -36,6 +36,7 @@ const Title = styled.h2`
   color: rgb(94, 108, 132);
 `;
 
+// the - and + in calc must have whitespace before and after they
 const Background = styled.div`
   position: absolute;
   width: 100%;
@@ -43,8 +44,8 @@ const Background = styled.div`
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: left bottom, right bottom;
-  background-size: calc(((100vw - 40rem) / 2)-3.2rem),
-    calc(((100vw - 40rem) / 2)-3.2rem), cover;
+  background-size: calc(((100vw - 40rem) / 2) - 3.2rem),
+    calc(((100vw - 40rem) / 2) - 3.2rem), cover;
   background-image: url(${left}), url(${right});
 `;
 
