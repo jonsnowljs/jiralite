@@ -1,4 +1,5 @@
 import { Table } from "antd";
+import dayjs from "dayjs";
 import React from "react";
 import { User } from "./SearchPanel";
 
@@ -8,6 +9,7 @@ interface Project {
   personId: string;
   pin: boolean;
   organization: string;
+  created: number;
 }
 
 interface ListProps {
@@ -21,8 +23,13 @@ export const List = ({ list, users }: ListProps) => {
       pagination={false}
       columns={[
         {
-          title: "title",
+          title: "Project",
           dataIndex: "name",
+          sorter: (a, b) => a.name.localeCompare(b.name),
+        },
+        {
+          title: "Department",
+          dataIndex: "organization",
           sorter: (a, b) => a.name.localeCompare(b.name),
         },
         {
@@ -32,6 +39,18 @@ export const List = ({ list, users }: ListProps) => {
               <span>
                 {users.find((user) => user.id === project.personId)?.name ||
                   "Unknown"}
+              </span>
+            );
+          },
+        },
+        {
+          title: "Created Time",
+          render(value, project) {
+            return (
+              <span>
+                {project.created
+                  ? dayjs(project.created).format("YYYY-MM-DD")
+                  : null}
               </span>
             );
           },

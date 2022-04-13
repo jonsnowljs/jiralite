@@ -1,4 +1,4 @@
-import { Input, Select } from "antd";
+import { Form, Input, Select } from "antd";
 import React, { useState, useEffect } from "react";
 
 export interface User {
@@ -20,9 +20,10 @@ interface SearchPanelProps {
 }
 export const SearchPanel = ({ users, param, setParam }: SearchPanelProps) => {
   return (
-    <form>
-      <div>
+    <Form style={{ marginBottom: "2rem" }} layout={"inline"}>
+      <Form.Item>
         <Input
+          placeholder="Project Name"
           type="text"
           value={param.name}
           onChange={(evt) =>
@@ -32,6 +33,8 @@ export const SearchPanel = ({ users, param, setParam }: SearchPanelProps) => {
             })
           }
         />
+      </Form.Item>
+      <Form.Item>
         <Select
           value={param.personId}
           onChange={(value) =>
@@ -41,14 +44,14 @@ export const SearchPanel = ({ users, param, setParam }: SearchPanelProps) => {
             })
           }
         >
-          <Select.Option value={""}>Lead</Select.Option>
+          <Select.Option value={""}>Leader</Select.Option>
           {users.map((user) => (
             <Select.Option key={user.id} value={user.id}>
               {user.name}
             </Select.Option>
           ))}
         </Select>
-      </div>
-    </form>
+      </Form.Item>
+    </Form>
   );
 };
