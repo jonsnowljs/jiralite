@@ -50,6 +50,8 @@ export const http = async (
 
 export const useHttp = () => {
   const { user } = useAuth();
+  // TS Utitlity Types: Parameters, typeof here is from TS. Howo to use Utility type: use generic type to pass in another type, and then utility  type  will make some operation on it
+
   return (...[endpoint, config]: Parameters<typeof http>) =>
     http(endpoint, { ...config, token: user?.token });
 };
