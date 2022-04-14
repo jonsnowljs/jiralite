@@ -17,11 +17,11 @@ export const UnauthenticatedApp = () => {
         <Title>{isRegister ? "Register" : "Login"}</Title>
         {isRegister ? <RegisterScreen /> : <LoginScreen />}
         <Divider />
-        <a onClick={() => setIsRegister(!isRegister)}>
+        <Button type={"link"} onClick={() => setIsRegister(!isRegister)}>
           {isRegister
             ? "Have an account? Login"
             : "Don't have an account? Register now"}
-        </a>
+        </Button>
       </ShadowCard>
     </Container>
   );
