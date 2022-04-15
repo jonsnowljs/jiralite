@@ -14,10 +14,18 @@ export const RegisterScreen = ({
 
   // HTMLFormElement extends Element
   // Interface Oriented: duck typing. As long as the field in the interface are same. Typescript would have compile error
-  const handleSubmit = async (values: {
+  const handleSubmit = async ({
+    cpassword,
+    ...values
+  }: {
     username: string;
     password: string;
+    cpassword: string;
   }) => {
+    if (cpassword !== values.password) {
+      onError(new Error("Please make sure your passwords match "));
+      return;
+    }
     try {
       await register(values);
     } catch (e: any) {
@@ -38,6 +46,16 @@ export const RegisterScreen = ({
         rules={[{ required: true, message: "Please input you password" }]}
       >
         <Input placeholder={"Password"} type="password" id="password" />
+      </Form.Item>
+      <Form.Item
+        name={"cpassword"}
+        rules={[{ required: true, message: "Please confirm you password" }]}
+      >
+        <Input
+          placeholder={"Confirm Password"}
+          type="password"
+          id="cpassword"
+        />
       </Form.Item>
       <Form.Item>
         <LongButton htmlType={"submit"} type={"primary"}>
