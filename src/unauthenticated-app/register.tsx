@@ -2,6 +2,7 @@ import { Button, Form, Input } from "antd";
 import { useAuth } from "context/AuthContext";
 import React from "react";
 import { LongButton } from "unauthenticated-app";
+import { useAsync } from "utils/useAsync";
 
 const apiurl = process.env.REACT_APP_API_URL;
 
@@ -11,6 +12,7 @@ export const RegisterScreen = ({
   onError: (error: Error) => void;
 }) => {
   const { register, user } = useAuth();
+  const { run, isLoading } = useAsync(undefined, { throwOnError: true });
 
   // HTMLFormElement extends Element
   // Interface Oriented: duck typing. As long as the field in the interface are same. Typescript would have compile error
@@ -27,7 +29,7 @@ export const RegisterScreen = ({
       return;
     }
     try {
-      await register(values);
+      await run(register(values));
     } catch (e: any) {
       onError(e);
     }
@@ -58,7 +60,7 @@ export const RegisterScreen = ({
         />
       </Form.Item>
       <Form.Item>
-        <LongButton htmlType={"submit"} type={"primary"}>
+        <LongButton loading={isLoading} htmlType={"submit"} type={"primary"}>
           Register
         </LongButton>
       </Form.Item>
