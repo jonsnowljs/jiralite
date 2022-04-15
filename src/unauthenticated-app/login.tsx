@@ -4,13 +4,25 @@ import { Button, Form, Input } from "antd";
 import { LongButton } from "unauthenticated-app";
 const apiurl = process.env.REACT_APP_API_URL;
 
-export const LoginScreen = () => {
+// { onError }: { onError: (error: Error) => void } is the syntax for destructuring.
+export const LoginScreen = ({
+  onError,
+}: {
+  onError: (error: Error) => void;
+}) => {
   const { login, user } = useAuth();
 
   // HTMLFormElement extends Element
   // Interface Oriented: duck typing. As long as the field in the interface are same. Typescript would have compile error
-  const handleSubmit = (values: { username: string; password: string }) => {
-    login(values);
+  const handleSubmit = async (values: {
+    username: string;
+    password: string;
+  }) => {
+    try {
+      await login(values);
+    } catch (e: any) {
+      onError(e);
+    }
   };
 
   return (
@@ -29,7 +41,7 @@ export const LoginScreen = () => {
       </Form.Item>
       <Form.Item>
         <LongButton htmlType={"submit"} type={"primary"}>
-          Logi
+          Login
         </LongButton>
       </Form.Item>
     </Form>

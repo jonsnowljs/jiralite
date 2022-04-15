@@ -5,13 +5,24 @@ import { LongButton } from "unauthenticated-app";
 
 const apiurl = process.env.REACT_APP_API_URL;
 
-export const RegisterScreen = () => {
+export const RegisterScreen = ({
+  onError,
+}: {
+  onError: (error: Error) => void;
+}) => {
   const { register, user } = useAuth();
 
   // HTMLFormElement extends Element
   // Interface Oriented: duck typing. As long as the field in the interface are same. Typescript would have compile error
-  const handleSubmit = (values: { username: string; password: string }) => {
-    register(values);
+  const handleSubmit = async (values: {
+    username: string;
+    password: string;
+  }) => {
+    try {
+      await register(values);
+    } catch (e: any) {
+      onError(e);
+    }
   };
 
   return (
