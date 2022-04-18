@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 // '!0'is true, '!1' is false
 // '!!'means get the boolean value of a value
 // compare to any , unkown type can be any value like any, but when you use it call some method, it will have more restriction
@@ -70,7 +70,10 @@ export const useDocumentTitle = (
   title: string,
   keepOnUnmount: boolean = true
 ) => {
-  const oldTitle = document.title;
+  const oldTitle = useRef(document.title).current;
+
+  // When page loading: old title === 'React App'
+  // After loading: oldTitle === new title
   useEffect(() => {
     document.title = title;
   }, [title]);
@@ -78,8 +81,9 @@ export const useDocumentTitle = (
   useEffect(() => {
     return () => {
       if (!keepOnUnmount) {
+        // if no dependency is added oldTitle will be loaded
         document.title = oldTitle;
       }
     };
-  });
+  }, [keepOnUnmount, oldTitle]);
 };

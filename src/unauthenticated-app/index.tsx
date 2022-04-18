@@ -12,7 +12,7 @@ export const UnauthenticatedApp = () => {
   const [isRegister, setIsRegister] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
-  useDocumentTitle("Please register first");
+  // useDocumentTitle("Please register first");
   return (
     <Container style={{ display: "flex", justifyContent: "center" }}>
       <Header />
