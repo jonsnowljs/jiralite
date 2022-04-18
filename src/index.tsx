@@ -11,6 +11,7 @@ loadServer(() =>
     <React.StrictMode>
       <AppProviders>
         <DevTools />
+
         <App />
       </AppProviders>
     </React.StrictMode>,

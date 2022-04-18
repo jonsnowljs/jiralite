@@ -5,43 +5,62 @@ import { ProjectListScreen } from "screens/ProjectList";
 import { ReactComponent as SoftwareLogo } from "assets/software-logo.svg";
 import { Button, Dropdown, Menu } from "antd";
 import { userInfo } from "os";
+import { Route, Routes } from "react-router";
+
+import ProjectScreen from "screens/project";
+import { BrowserRouter as Router } from "react-router-dom";
 
 export const AuthenticatedApp = () => {
-  const { logout, user } = useAuth();
   return (
     <Container>
-      <Header between={true}>
-        <HeaderLeft gap={true}>
-          <SoftwareLogo width={"3rem"} color={"rgb(38, 132, 255)"} />
-          <h2>Project</h2>
-          <h2>User</h2>
-        </HeaderLeft>
-        <HeaderRight>
-          <Dropdown
-            overlay={
-              <Menu>
-                <Menu.Item key={"logout"}>
-                  <Button onClick={logout} type={"link"}>
-                    Logout
-                  </Button>
-                </Menu.Item>
-              </Menu>
-            }
-          >
-            <Button type={"link"} onClick={(e) => e.preventDefault()}>
-              Hi, {user?.name}
-            </Button>
-          </Dropdown>
-        </HeaderRight>
-      </Header>
+      <PageHeader />
       <Main>
-        <ProjectListScreen />
+        <Router>
+          <Routes>
+            <Route path={"/projects"} element={<ProjectListScreen />} />
+            <Route
+              path={"/projects/:projectId/*"}
+              element={<ProjectScreen />}
+            />
+          </Routes>
+        </Router>
       </Main>
     </Container>
   );
 };
 
 // one dimension layout use flex, two dimension use grid.
+
+const PageHeader = () => {
+  const { logout, user } = useAuth();
+
+  return (
+    <Header between={true}>
+      <HeaderLeft gap={true}>
+        <SoftwareLogo width={"3rem"} color={"rgb(38, 132, 255)"} />
+        <h2>Project</h2>
+        <h2>User</h2>
+      </HeaderLeft>
+      <HeaderRight>
+        <Dropdown
+          overlay={
+            <Menu>
+              <Menu.Item key={"logout"}>
+                <Button onClick={logout} type={"link"}>
+                  Logout
+                </Button>
+              </Menu.Item>
+            </Menu>
+          }
+        >
+          <Button type={"link"} onClick={(e) => e.preventDefault()}>
+            Hi, {user?.name}
+          </Button>
+        </Dropdown>
+      </HeaderRight>
+    </Header>
+  );
+};
 
 const Container = styled.div`
   display: grid;
