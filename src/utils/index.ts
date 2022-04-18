@@ -87,3 +87,6 @@ export const useDocumentTitle = (
     };
   }, [keepOnUnmount, oldTitle]);
 };
+
+// reset routes to root, make it go back to homepage
+export const resetRoute = () => (window.location.href = window.location.origin);

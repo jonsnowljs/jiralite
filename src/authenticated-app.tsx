@@ -5,10 +5,11 @@ import { ProjectListScreen } from "screens/ProjectList";
 import { ReactComponent as SoftwareLogo } from "assets/software-logo.svg";
 import { Button, Dropdown, Menu } from "antd";
 import { userInfo } from "os";
-import { Route, Routes } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
 
 import ProjectScreen from "screens/project";
 import { BrowserRouter as Router } from "react-router-dom";
+import { resetRoute } from "utils";
 
 export const AuthenticatedApp = () => {
   return (
@@ -22,6 +23,7 @@ export const AuthenticatedApp = () => {
               path={"/projects/:projectId/*"}
               element={<ProjectScreen />}
             />
+            <Route path="*" element={<Navigate to={"/projects"} />} />
           </Routes>
         </Router>
       </Main>
@@ -37,7 +39,9 @@ const PageHeader = () => {
   return (
     <Header between={true}>
       <HeaderLeft gap={true}>
-        <SoftwareLogo width={"3rem"} color={"rgb(38, 132, 255)"} />
+        <Button type={"link"} onClick={resetRoute}>
+          <SoftwareLogo width={"3rem"} color={"rgb(38, 132, 255)"} />
+        </Button>
         <h2>Project</h2>
         <h2>User</h2>
       </HeaderLeft>
