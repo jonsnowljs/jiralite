@@ -7,9 +7,9 @@ import { User } from "./SearchPanel";
 
 // TODO, change id to number
 export interface Project {
-  id: string;
+  id: number;
   name: string;
-  personId: string;
+  personId: number;
   pin: boolean;
   organization: string;
   created: number;

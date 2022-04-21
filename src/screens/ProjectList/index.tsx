@@ -7,18 +7,17 @@ import { useProjects } from "utils/project";
 import { useUsers } from "utils/user";
 import { Typography } from "antd";
 import { useUrlQueryParam } from "utils/url";
+import { useProjectsSearchParams } from "./util";
 
 const apiurl = process.env.REACT_APP_API_URL;
 
 export const ProjectListScreen = () => {
+  useDocumentTitle("Project List", false);
   // const [, setParam] = useState({ name: "", personId: "" });
 
-  const [param, setParam] = useUrlQueryParam(["name", "personId"]);
-  const debouncedParam = useDebounce(param, 500);
-  const { isLoading, error, data: list } = useProjects(debouncedParam);
+  const [param, setParam] = useProjectsSearchParams();
+  const { isLoading, error, data: list } = useProjects(useDebounce(param, 200));
   const { data: users } = useUsers();
-
-  useDocumentTitle("Project List", false);
 
   console.log(useUrlQueryParam(["name"]));
   const test = useUrlQueryParam(["name"]);
@@ -35,7 +34,7 @@ export const ProjectListScreen = () => {
   );
 };
 
-ProjectListScreen.whyDidYouRender = false;
+ProjectListScreen.whyDidYouRender = true;
 
 const Container = styled.div`
   padding: 3.2rem;
