@@ -26,9 +26,6 @@ export const ProjectListScreen = () => {
   return (
     <Container>
       <h1>Project List</h1>
-      <select>
-        <option value={undefined}>default value</option>
-      </select>
       <SearchPanel users={users || []} param={param} setParam={setParam} />
       {error ? (
         <Typography.Text type={"danger"}>{error.message}</Typography.Text>
