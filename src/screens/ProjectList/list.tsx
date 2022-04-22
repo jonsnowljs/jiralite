@@ -1,8 +1,10 @@
 import { Table, TableProps } from "antd";
+import { Pin } from "components/pin";
 import dayjs from "dayjs";
 import React from "react";
 // react-router-dom and react-router's relationship, react-router is used to control the router states. react-router-dom will use the router states calculated by react-router
 import { Link } from "react-router-dom";
+import { useEditProject } from "utils/project";
 import { User } from "./SearchPanel";
 
 // TODO, change id to number
@@ -20,11 +22,26 @@ interface ListProps extends TableProps<Project> {
 }
 
 export const List = ({ users, ...props }: ListProps) => {
+  const { mutate } = useEditProject();
+  const pinProject = (id: number) => (pin: boolean) => mutate({ id, pin });
   return (
     <Table
       rowKey={"id"}
       pagination={false}
       columns={[
+        {
+          title: <Pin checked={true} disabled={true} />,
+          render(value, project) {
+            return (
+              <Pin
+                checked={project.pin}
+                onCheckedChange={(pin) => {
+                  pinProject(project.id);
+                }}
+              />
+            );
+          },
+        },
         {
           title: "Project",
           sorter: (a, b) => a.name.localeCompare(b.name),
