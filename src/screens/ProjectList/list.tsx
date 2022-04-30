@@ -35,9 +35,7 @@ export const List = ({ users, ...props }: ListProps) => {
             return (
               <Pin
                 checked={project.pin}
-                onCheckedChange={(pin) => {
-                  pinProject(project.id);
-                }}
+                onCheckedChange={pinProject(project.id)}
               />
             );
           },

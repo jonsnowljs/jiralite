@@ -30,9 +30,10 @@ export const useEditProject = () => {
   };
   return {
     mutate,
+    ...asyncResult,
   };
 };
-export const useAddProject = (id: number, param: object) => {
+export const useAddProject = () => {
   const { run, ...asyncResult } = useAsync();
   const client = useHttp();
   const mutate = (params: Partial<Project>) => {
@@ -45,5 +46,6 @@ export const useAddProject = (id: number, param: object) => {
   };
   return {
     mutate,
+    ...asyncResult,
   };
 };
