@@ -17,7 +17,7 @@ export const useProjects = (param?: Partial<Project>) => {
   return result;
 };
 
-export const useEditProject = (id: number, param: object) => {
+export const useEditProject = () => {
   const { run, ...asyncResult } = useAsync();
   const client = useHttp();
   const mutate = (params: Partial<Project>) => {
