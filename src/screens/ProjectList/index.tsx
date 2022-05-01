@@ -5,7 +5,7 @@ import { SearchPanel } from "./SearchPanel";
 import styled from "@emotion/styled";
 import { useProjects } from "utils/project";
 import { useUsers } from "utils/user";
-import { Typography } from "antd";
+import { Button, Typography } from "antd";
 import { useUrlQueryParam } from "utils/url";
 import { useProjectsSearchParams } from "./util";
 
@@ -16,15 +16,22 @@ export const ProjectListScreen = () => {
   // const [, setParam] = useState({ name: "", personId: "" });
 
   const [param, setParam] = useProjectsSearchParams();
-  const { isLoading, error, data: list } = useProjects(useDebounce(param, 200));
+  const {
+    isLoading,
+    error,
+    data: list,
+    retry,
+  } = useProjects(useDebounce(param, 200));
   const { data: users } = useUsers();
 
+  console.log(retry, "retry");
   console.log(useUrlQueryParam(["name"]));
   const test = useUrlQueryParam(["name"]);
 
   return (
     <Container>
       <h1>Project List</h1>
+      <Button onClick={retry}>retry</Button>
       <SearchPanel users={users || []} param={param} setParam={setParam} />
       {error ? (
         <Typography.Text type={"danger"}>{error.message}</Typography.Text>

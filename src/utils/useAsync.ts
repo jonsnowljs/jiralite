@@ -25,6 +25,7 @@ export const useAsync = <D>(
     ...defaultInitialState,
     ...initialState,
   });
+  const [retry, setRetry] = useState();
 
   const setData = (data: D) =>
     setState({
@@ -40,11 +41,17 @@ export const useAsync = <D>(
       data: null,
     });
 
+  //lazy initial state: useState initial state will run the function used as initial state in useState hook
+  // can't pass in function directly to useState.
+  // Solution 1:
   // used to trigger async request
   const run = (promise: Promise<D>) => {
     if (!promise || !promise.then) {
       throw new Error("Please pass in data type: Promise");
     }
+    setRetry(() => {
+      run(promise);
+    });
     setState({ ...state, stat: "loading" });
     return promise
       .then((data) => {
@@ -60,6 +67,7 @@ export const useAsync = <D>(
         return error;
       });
   };
+
   return {
     isIdle: state.stat === "idle",
     isLoading: state.stat === "loading",
@@ -68,6 +76,8 @@ export const useAsync = <D>(
     run,
     setData,
     setError,
+    // when retry is called execute run again, refresh state
+    retry,
     ...state,
   };
 };
