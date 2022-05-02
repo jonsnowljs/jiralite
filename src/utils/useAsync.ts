@@ -25,7 +25,7 @@ export const useAsync = <D>(
     ...defaultInitialState,
     ...initialState,
   });
-  const [retry, setRetry] = useState();
+  const [retry, setRetry] = useState(() => () => {});
 
   const setData = (data: D) =>
     setState({
@@ -45,12 +45,17 @@ export const useAsync = <D>(
   // can't pass in function directly to useState.
   // Solution 1:
   // used to trigger async request
-  const run = (promise: Promise<D>) => {
+  const run = (
+    promise: Promise<D>,
+    runConfig?: { retry: () => Promise<D> }
+  ) => {
     if (!promise || !promise.then) {
       throw new Error("Please pass in data type: Promise");
     }
-    setRetry(() => {
-      run(promise);
+    setRetry(() => () => {
+      if (runConfig?.retry) {
+        run(runConfig?.retry(), runConfig);
+      }
     });
     setState({ ...state, stat: "loading" });
     return promise
