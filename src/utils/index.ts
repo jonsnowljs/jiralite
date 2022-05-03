@@ -90,3 +90,20 @@ export const useDocumentTitle = (
 
 // reset routes to root, make it go back to homepage
 export const resetRoute = () => (window.location.href = window.location.origin);
+
+/**
+ * used to return the mounted status of component,
+ * @return boolean. if unmounted or haven't mounted yet return false. if mounted return true
+ */
+export const useMountedRef = () => {
+  const mountedRef = useRef(false);
+
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    };
+  });
+
+  return mountedRef;
+};
