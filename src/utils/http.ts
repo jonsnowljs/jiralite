@@ -1,6 +1,7 @@
 import qs from "qs";
 import * as auth from "AuthProvider";
 import { useAuth } from "context/AuthContext";
+import { useCallback } from "react";
 
 interface Config extends RequestInit {
   token?: string;
@@ -52,6 +53,9 @@ export const useHttp = () => {
   const { user } = useAuth();
   // TS Utitlity Types: Parameters, typeof here is from TS. Howo to use Utility type: use generic type to pass in another type, and then utility  type  will make some operation on it
 
-  return (...[endpoint, config]: Parameters<typeof http>) =>
-    http(endpoint, { ...config, token: user?.token });
+  return useCallback(
+    (...[endpoint, config]: Parameters<typeof http>) =>
+      http(endpoint, { ...config, token: user?.token }),
+    [user?.token]
+  );
 };
