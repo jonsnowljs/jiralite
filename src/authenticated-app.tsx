@@ -18,7 +18,16 @@ export const AuthenticatedApp = () => {
   const [projectModalOpen, setProjectModalOpen] = useState(false);
   return (
     <Container>
-      <PageHeader setProjectModalOpen={setProjectModalOpen} />
+      <PageHeader
+        projectButton={
+          <ButtonNoPadding
+            onClick={() => setProjectModalOpen(true)}
+            type={"link"}
+          >
+            New Project
+          </ButtonNoPadding>
+        }
+      />
 
       <Main>
         <Router>
@@ -26,7 +35,16 @@ export const AuthenticatedApp = () => {
             <Route
               path={"/projects"}
               element={
-                <ProjectListScreen setProjectModalOpen={setProjectModalOpen} />
+                <ProjectListScreen
+                  projectButton={
+                    <ButtonNoPadding
+                      onClick={() => setProjectModalOpen(true)}
+                      type={"link"}
+                    >
+                      New Project
+                    </ButtonNoPadding>
+                  }
+                />
               }
             />
             <Route
@@ -47,9 +65,7 @@ export const AuthenticatedApp = () => {
 
 // one dimension layout use flex, two dimension use grid.
 
-const PageHeader = (props: {
-  setProjectModalOpen: (isOpen: boolean) => void;
-}) => {
+const PageHeader = (props: { projectButton: JSX.Element }) => {
   return (
     <Header between={true}>
       <HeaderLeft gap={true}>
@@ -60,7 +76,7 @@ const PageHeader = (props: {
         >
           <SoftwareLogo width={"4rem"} color={"rgb(38, 132, 255)"} />
         </ButtonNoPadding>
-        <ProjectPopover setProjectModalOpen={props.setProjectModalOpen} />
+        <ProjectPopover {...props} />
         <span>User</span>
       </HeaderLeft>
       <HeaderRight>
