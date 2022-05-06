@@ -10,11 +10,15 @@ import { Navigate, Route, Routes } from "react-router";
 import ProjectScreen from "screens/project";
 import { BrowserRouter as Router } from "react-router-dom";
 import { resetRoute } from "utils";
+import { useState } from "react";
+import ProjectModal from "screens/ProjectList/ProjectModal";
 
 export const AuthenticatedApp = () => {
+  const [projectModalOpen, setProjectModalOpen] = useState(false);
   return (
     <Container>
       <PageHeader />
+      <Button onClick={() => setProjectModalOpen(true)}>Open</Button>
       <Main>
         <Router>
           <Routes>
@@ -27,6 +31,10 @@ export const AuthenticatedApp = () => {
           </Routes>
         </Router>
       </Main>
+      <ProjectModal
+        projectModalOpen={projectModalOpen}
+        onClose={() => setProjectModalOpen(false)}
+      />
     </Container>
   );
 };
@@ -34,8 +42,6 @@ export const AuthenticatedApp = () => {
 // one dimension layout use flex, two dimension use grid.
 
 const PageHeader = () => {
-  const { logout, user } = useAuth();
-
   return (
     <Header between={true}>
       <HeaderLeft gap={true}>
@@ -46,23 +52,31 @@ const PageHeader = () => {
         <h2>User</h2>
       </HeaderLeft>
       <HeaderRight>
-        <Dropdown
-          overlay={
-            <Menu>
-              <Menu.Item key={"logout"}>
-                <Button onClick={logout} type={"link"}>
-                  Logout
-                </Button>
-              </Menu.Item>
-            </Menu>
-          }
-        >
-          <Button type={"link"} onClick={(e) => e.preventDefault()}>
-            Hi, {user?.name}
-          </Button>
-        </Dropdown>
+        <User />
       </HeaderRight>
     </Header>
+  );
+};
+
+const User = () => {
+  const { logout, user } = useAuth();
+
+  return (
+    <Dropdown
+      overlay={
+        <Menu>
+          <Menu.Item key={"logout"}>
+            <Button onClick={logout} type={"link"}>
+              Logout
+            </Button>
+          </Menu.Item>
+        </Menu>
+      }
+    >
+      <Button type={"link"} onClick={(e) => e.preventDefault()}>
+        Hi, {user?.name}
+      </Button>
+    </Dropdown>
   );
 };
 
