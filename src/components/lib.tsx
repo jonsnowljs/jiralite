@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Spin, Typography } from "antd";
+import { Button, Spin, Typography } from "antd";
 import { DevTools } from "jira-dev-tool";
 
 // Row Layout components, used to control the layout in row
@@ -44,3 +44,7 @@ export const FullPageErrorFallback = ({ error }: { error: Error | null }) => (
     <Typography.Text type={"danger"}>{error?.message}</Typography.Text>
   </FullPage>
 );
+
+export const ButtonNoPadding = styled(Button)`
+  padding: 0;
+`;

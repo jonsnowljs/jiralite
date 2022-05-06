@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Row } from "components/lib";
+import { ButtonNoPadding, Row } from "components/lib";
 import { useAuth } from "context/AuthContext";
 import { ProjectListScreen } from "screens/ProjectList";
 import { ReactComponent as SoftwareLogo } from "assets/software-logo.svg";
@@ -12,17 +12,23 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { resetRoute } from "utils";
 import { useState } from "react";
 import ProjectModal from "screens/ProjectList/ProjectModal";
+import { ProjectPopover } from "components/ProjectPopover";
 
 export const AuthenticatedApp = () => {
   const [projectModalOpen, setProjectModalOpen] = useState(false);
   return (
     <Container>
-      <PageHeader />
-      <Button onClick={() => setProjectModalOpen(true)}>Open</Button>
+      <PageHeader setProjectModalOpen={setProjectModalOpen} />
+
       <Main>
         <Router>
           <Routes>
-            <Route path={"/projects"} element={<ProjectListScreen />} />
+            <Route
+              path={"/projects"}
+              element={
+                <ProjectListScreen setProjectModalOpen={setProjectModalOpen} />
+              }
+            />
             <Route
               path={"/projects/:projectId/*"}
               element={<ProjectScreen />}
@@ -41,15 +47,21 @@ export const AuthenticatedApp = () => {
 
 // one dimension layout use flex, two dimension use grid.
 
-const PageHeader = () => {
+const PageHeader = (props: {
+  setProjectModalOpen: (isOpen: boolean) => void;
+}) => {
   return (
     <Header between={true}>
       <HeaderLeft gap={true}>
-        <Button type={"link"} onClick={resetRoute}>
-          <SoftwareLogo width={"3rem"} color={"rgb(38, 132, 255)"} />
-        </Button>
-        <h2>Project</h2>
-        <h2>User</h2>
+        <ButtonNoPadding
+          style={{ padding: 0 }}
+          type={"link"}
+          onClick={resetRoute}
+        >
+          <SoftwareLogo width={"4rem"} color={"rgb(38, 132, 255)"} />
+        </ButtonNoPadding>
+        <ProjectPopover setProjectModalOpen={props.setProjectModalOpen} />
+        <span>User</span>
       </HeaderLeft>
       <HeaderRight>
         <User />

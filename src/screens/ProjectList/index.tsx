@@ -8,10 +8,13 @@ import { useUsers } from "utils/user";
 import { Button, Typography } from "antd";
 import { useUrlQueryParam } from "utils/url";
 import { useProjectsSearchParams } from "./util";
+import { Row } from "components/lib";
 
 const apiurl = process.env.REACT_APP_API_URL;
 
-export const ProjectListScreen = () => {
+export const ProjectListScreen = (props: {
+  setProjectModalOpen: (isOpen: boolean) => void;
+}) => {
   useDocumentTitle("Project List", false);
   // const [, setParam] = useState({ name: "", personId: "" });
 
@@ -30,12 +33,18 @@ export const ProjectListScreen = () => {
 
   return (
     <Container>
-      <h1>Project List</h1>
+      <Row between={true}>
+        <h1>Project List</h1>
+        <Button onClick={() => props.setProjectModalOpen(true)}>
+          New Project
+        </Button>
+      </Row>
       <SearchPanel users={users || []} param={param} setParam={setParam} />
       {error ? (
         <Typography.Text type={"danger"}>{error.message}</Typography.Text>
       ) : null}
       <List
+        setProjectModalOpen={props.setProjectModalOpen}
         refresh={retry}
         loading={isLoading}
         users={users || []}
