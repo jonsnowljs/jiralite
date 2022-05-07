@@ -8,11 +8,13 @@ import { useUsers } from "utils/user";
 import { Button, Typography } from "antd";
 import { useUrlQueryParam } from "utils/url";
 import { useProjectsSearchParams } from "./util";
-import { Row } from "components/lib";
+import { ButtonNoPadding, Row } from "components/lib";
+import { useDispatch } from "react-redux";
+import { projectListActions } from "./ProjectList.slice";
 
 const apiurl = process.env.REACT_APP_API_URL;
 
-export const ProjectListScreen = (props: { projectButton: JSX.Element }) => {
+export const ProjectListScreen = () => {
   useDocumentTitle("Project List", false);
   // const [, setParam] = useState({ name: "", personId: "" });
 
@@ -24,6 +26,7 @@ export const ProjectListScreen = (props: { projectButton: JSX.Element }) => {
     retry,
   } = useProjects(useDebounce(param, 200));
   const { data: users } = useUsers();
+  const dispatch = useDispatch();
 
   console.log(retry, "retry");
   console.log(useUrlQueryParam(["name"]));
@@ -33,14 +36,19 @@ export const ProjectListScreen = (props: { projectButton: JSX.Element }) => {
     <Container>
       <Row between={true}>
         <h1>Project List</h1>
-        {props.projectButton}
+        <ButtonNoPadding
+          onClick={() => dispatch(projectListActions.openProjectModal())}
+          type={"link"}
+        >
+          New Project
+        </ButtonNoPadding>
       </Row>
       <SearchPanel users={users || []} param={param} setParam={setParam} />
       {error ? (
         <Typography.Text type={"danger"}>{error.message}</Typography.Text>
       ) : null}
       <List
-        projectButton={props.projectButton}
+        // projectButton={props.projectButton}
         refresh={retry}
         loading={isLoading}
         users={users || []}
