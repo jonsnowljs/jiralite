@@ -3,6 +3,7 @@ import React from "react";
 import { Button, Form, Input } from "antd";
 import { LongButton } from "unauthenticated-app";
 import { useAsync } from "utils/useAsync";
+import { useDispatch } from "react-redux";
 const apiurl = process.env.REACT_APP_API_URL;
 
 // { onError }: { onError: (error: Error) => void } is the syntax for destructuring.
@@ -13,6 +14,7 @@ export const LoginScreen = ({
 }) => {
   const { login, user } = useAuth();
   const { run, isLoading } = useAsync(undefined, { throwOnError: true });
+  const dispatch = useDispatch();
 
   // HTMLFormElement extends Element
   // Interface Oriented: duck typing. As long as the field in the interface are same. Typescript would have compile error
@@ -20,6 +22,7 @@ export const LoginScreen = ({
     username: string;
     password: string;
   }) => {
+    dispatch(loginThunk(values));
     try {
       await run(login(values));
     } catch (e: any) {
