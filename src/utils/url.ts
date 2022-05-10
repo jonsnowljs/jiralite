@@ -4,6 +4,7 @@ import { cleanObject } from "utils";
 
 /**
  * return the specified parameter's value in the url
+ * used as state management
  */
 export const useUrlQueryParam = <K extends string>(keys: K[]) => {
   const [searchParams, setSearchParam] = useSearchParams();

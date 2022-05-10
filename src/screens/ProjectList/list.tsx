@@ -7,6 +7,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useEditProject } from "utils/project";
 import { User } from "./SearchPanel";
+import { useProjectModal } from "./util";
 
 // TODO, change id to number
 export interface Project {
@@ -21,10 +22,10 @@ export interface Project {
 interface ListProps extends TableProps<Project> {
   users: User[];
   refresh?: () => void;
-  projectButton: JSX.Element;
 }
 
 export const List = ({ users, ...props }: ListProps) => {
+  const { open } = useProjectModal();
   const { mutate } = useEditProject();
   const pinProject = (id: number) => (pin: boolean) =>
     mutate({ id, pin }).then(props.refresh);
@@ -85,11 +86,13 @@ export const List = ({ users, ...props }: ListProps) => {
               <Dropdown
                 overlay={
                   <Menu>
-                    <Menu.Item key={"edit"}>{props.projectButton}</Menu.Item>
+                    <Menu.Item key={"edit"}></Menu.Item>
                   </Menu>
                 }
               >
-                <ButtonNoPadding type="link">...</ButtonNoPadding>
+                <ButtonNoPadding type="link" onClick={open}>
+                  ...
+                </ButtonNoPadding>
               </Dropdown>
             );
           },
