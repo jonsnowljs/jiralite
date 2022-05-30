@@ -7,8 +7,8 @@ import { useAsync } from "./useAsync";
 
 export const useProjects = (param?: Partial<Project>) => {
   const client = useHttp();
-  return useQuery<Project[]>(["project", param], () =>
-    client("project", { data: param })
+  return useQuery<Project[]>(["projects", param], () =>
+    client("projects", { data: param })
   );
 };
 
