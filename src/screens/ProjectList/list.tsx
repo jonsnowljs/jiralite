@@ -25,10 +25,14 @@ interface ListProps extends TableProps<Project> {
 }
 
 export const List = ({ users, ...props }: ListProps) => {
-  const { open } = useProjectModal();
+  const { startEdit } = useProjectModal();
   const { mutate } = useEditProject();
-  const pinProject = (id: number) => (pin: boolean) =>
-    mutate({ id, pin }).then(props.refresh);
+  const pinProject = (id: number) => (pin: boolean) => {
+    mutate({ id, pin });
+  };
+  const editProject = (id: number) => () => {
+    startEdit(id);
+  };
   return (
     <Table
       rowKey={"id"}
@@ -86,13 +90,15 @@ export const List = ({ users, ...props }: ListProps) => {
               <Dropdown
                 overlay={
                   <Menu>
-                    <Menu.Item key={"edit"}></Menu.Item>
+                    <Menu.Item
+                      onClick={editProject(project.id)}
+                      key={"edit"}
+                    ></Menu.Item>
+                    <Menu.Item key={"delete"}></Menu.Item>
                   </Menu>
                 }
               >
-                <ButtonNoPadding type="link" onClick={open}>
-                  ...
-                </ButtonNoPadding>
+                <ButtonNoPadding type="link">...</ButtonNoPadding>
               </Dropdown>
             );
           },

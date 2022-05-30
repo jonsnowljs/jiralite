@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useProject } from "utils/project";
 import { useUrlQueryParam } from "utils/url";
 
 //  param for project list search
@@ -20,14 +21,28 @@ export const useProjectModal = () => {
   const [{ projectCreate }, setProjectCreate] = useUrlQueryParam([
     "projectCreate",
   ]);
+  const [{ editingProjectId }, setEditingProjectId] = useUrlQueryParam([
+    "editingProjectId",
+  ]);
+
+  const { data: editingProject, isLoading } = useProject(
+    Number(editingProjectId)
+  );
 
   const open = () => setProjectCreate({ projectCreate: true });
-  const close = () => setProjectCreate({ projectCreate: undefined });
+  const close = () => {
+    setProjectCreate({ projectCreate: undefined });
+    setEditingProjectId({ editingProjectId: undefined });
+  };
+  const startEdit = (id: number) =>
+    setEditingProjectId({ editingProjectId: id });
 
-  // when return less than 3 use tuple, so you can name it whatever you want in same order, when more than 3 return object, so you can return in any order with the same name.
   return {
-    projectModalOpen: projectCreate === "true",
+    projectModalOpen: projectCreate === "true" || Boolean(editingProject),
     open,
     close,
+    startEdit,
+    editingProject,
+    isLoading,
   };
 };
