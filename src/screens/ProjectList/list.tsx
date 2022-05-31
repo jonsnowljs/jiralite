@@ -90,11 +90,10 @@ export const List = ({ users, ...props }: ListProps) => {
               <Dropdown
                 overlay={
                   <Menu>
-                    <Menu.Item
-                      onClick={editProject(project.id)}
-                      key={"edit"}
-                    ></Menu.Item>
-                    <Menu.Item key={"delete"}></Menu.Item>
+                    <Menu.Item onClick={editProject(project.id)} key={"edit"}>
+                      edit
+                    </Menu.Item>
+                    <Menu.Item key={"delete"}>delete</Menu.Item>
                   </Menu>
                 }
               >

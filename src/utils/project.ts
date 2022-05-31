@@ -17,7 +17,7 @@ export const useEditProject = () => {
   const queryClient = useQueryClient();
   return useMutation(
     (params: Partial<Project>) =>
-      client(`projects`, {
+      client(`projects/${params.id}`, {
         method: "PATCH",
         data: params,
       }),
@@ -31,7 +31,7 @@ export const useAddProject = () => {
 
   return useMutation(
     (params: Partial<Project>) =>
-      client(`projects/${params.id}`, {
+      client(`projects`, {
         data: params,
         method: "POST",
       }),
