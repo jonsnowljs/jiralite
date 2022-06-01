@@ -8,6 +8,12 @@ interface Config extends RequestInit {
   data?: object;
 }
 
+/**
+ *
+ * @param endpoint - endpoint of the http request
+ * @param param1 - config object for the http request
+ * @returns
+ */
 export const http = async (
   endpoint: string,
   { data, token, headers, ...customConfig }: Config = {}
@@ -49,9 +55,14 @@ export const http = async (
     });
 };
 
+/**
+ * send http request when the user is authorized
+ *
+ * @returns callback http callback function
+ */
 export const useHttp = () => {
   const { user } = useAuth();
-  // TS Utitlity Types: Parameters, typeof here is from TS. Howo to use Utility type: use generic type to pass in another type, and then utility  type  will make some operation on it
+  // TS Utitlity Types: Parameters, typeof here is from TS. How to use Utility type: use generic type to pass in another type, and then utility  type  will make some operation on it
 
   return useCallback(
     (...[endpoint, config]: Parameters<typeof http>) =>

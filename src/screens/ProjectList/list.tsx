@@ -7,7 +7,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useEditProject } from "utils/project";
 import { User } from "./SearchPanel";
-import { useProjectModal } from "./util";
+import { useProjectModal, useProjectsQueryKey } from "./util";
 
 // TODO, change id to number
 export interface Project {
@@ -26,10 +26,9 @@ interface ListProps extends TableProps<Project> {
 
 export const List = ({ users, ...props }: ListProps) => {
   const { startEdit } = useProjectModal();
-  const { mutate } = useEditProject();
-  const pinProject = (id: number) => (pin: boolean) => {
-    mutate({ id, pin });
-  };
+  const { mutate } = useEditProject(useProjectsQueryKey());
+  const pinProject = (id: number) => (pin: boolean) => mutate({ id, pin });
+
   const editProject = (id: number) => () => {
     startEdit(id);
   };

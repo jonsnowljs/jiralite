@@ -5,7 +5,7 @@ import { useUrlQueryParam } from "utils/url";
 
 //  param for project list search
 export const useProjectsSearchParams = () => {
-  const [param, setParam] = useUrlQueryParam(["name", "personId"]);
+  const [param, setParam] = useUrlQueryParam(["personId"]);
   return [
     useMemo(
       () => ({
@@ -16,6 +16,11 @@ export const useProjectsSearchParams = () => {
     ),
     setParam,
   ] as const;
+};
+
+export const useProjectsQueryKey = () => {
+  const [params] = useProjectsSearchParams();
+  return ["projects", params];
 };
 
 /**

@@ -6,6 +6,7 @@ import { AuthenticatedApp } from "authenticated-app";
 import { UnauthenticatedApp } from "unauthenticated-app";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { FullPageErrorFallback } from "components/lib";
+import { ReactQueryDevtools } from "react-query/devtools";
 
 function App() {
   const { user } = useAuth();
@@ -13,6 +14,7 @@ function App() {
     <div className="App">
       <ErrorBoundary fallbackRender={FullPageErrorFallback}>
         {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+        <ReactQueryDevtools initialIsOpen={false} />
       </ErrorBoundary>
     </div>
   );
