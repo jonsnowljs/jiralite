@@ -1,19 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Routes, Route } from "react-router";
-import BoardScreen from "screens/Board";
+import { Routes, Route, Navigate } from "react-router";
 import EpicScreen from "screens/Epic";
+import KanbanScreen from "screens/kanban";
 const ProjectScreen = () => {
   return (
     <div>
       <h1>ProjectScreen</h1>
-      {/* if to={"/Board"}, it / wil make it be root router */}
-      <Link to={"Board"}>Board</Link>
+      {/* if to={"/Kanban"}, it / wil make it be root router */}
+      <Link to={"kanban"}>Kanban</Link>
       <Link to={"epic"}>Epic</Link>
       <Routes>
-        <Route path={"/board"} element={<BoardScreen />} />
+        <Route path={"/kanban"} element={<KanbanScreen />} />
         <Route path={"/epic"} element={<EpicScreen />} />
-        <Route path="*" element={<BoardScreen />} />
+        {/* <Route path="*" element={<KanbanScreen />} /> */}
+        <Navigate to={window.location.pathname + "/kanban"} replace={true} />
       </Routes>
     </div>
   );

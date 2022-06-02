@@ -25,6 +25,11 @@ const ProjectModal = () => {
     });
   };
 
+  const closeModal = () => {
+    form.resetFields();
+    close();
+  };
+
   const title = editingProject ? "Edit Project" : "Creat Project";
 
   useEffect(() => {
@@ -34,7 +39,7 @@ const ProjectModal = () => {
   return (
     <Drawer
       forceRender={true}
-      onClose={close}
+      onClose={closeModal}
       width={"100%"}
       visible={projectModalOpen}
     >

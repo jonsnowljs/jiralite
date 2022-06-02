@@ -6,18 +6,9 @@ import React from "react";
 // react-router-dom and react-router's relationship, react-router is used to control the router states. react-router-dom will use the router states calculated by react-router
 import { Link } from "react-router-dom";
 import { useEditProject } from "utils/project";
-import { User } from "./SearchPanel";
+import { Project } from "../../types/Project";
+import { User } from "../../types/User";
 import { useProjectModal, useProjectsQueryKey } from "./util";
-
-// TODO, change id to number
-export interface Project {
-  id: number;
-  name: string;
-  personId: number;
-  pin: boolean;
-  organization: string;
-  created: number;
-}
 
 interface ListProps extends TableProps<Project> {
   users: User[];
