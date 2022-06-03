@@ -13,8 +13,8 @@ export const useProjectIdInUrl = () => {
 };
 
 /**
- * return the project in current url
- * @returns current project in the url
+ * return the project object in current url
+ * @returns current project object in the url
  */
 export const useProjectInUrl = () => useProject(useProjectIdInUrl());
 
