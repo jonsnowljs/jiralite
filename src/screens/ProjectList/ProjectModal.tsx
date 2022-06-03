@@ -43,7 +43,7 @@ const ProjectModal = () => {
       width={"100%"}
       visible={projectModalOpen}
     >
-      <Container>
+      <Container style={!!closeModal ? {} : { zIndex: "-1" }}>
         {isLoading ? (
           <Spin size={"large"} />
         ) : (

@@ -5,34 +5,42 @@ import { ProjectListScreen } from "screens/ProjectList";
 import { ReactComponent as SoftwareLogo } from "assets/software-logo.svg";
 import { Button, Dropdown, Menu } from "antd";
 import { userInfo } from "os";
-import { Navigate, Route, Routes } from "react-router";
+import { Outlet, Route, Router, Routes } from "react-router";
 
 import ProjectScreen from "screens/project";
-import { BrowserRouter as Router } from "react-router-dom";
 import { resetRoute } from "utils";
 import { useState } from "react";
 import ProjectModal from "screens/ProjectList/ProjectModal";
 import { ProjectPopover } from "components/ProjectPopover";
 import { useProjectModal } from "screens/ProjectList/util";
+import { BrowserRouter } from "react-router-dom";
 
 export const AuthenticatedApp = () => {
   return (
     <Container>
-      <Router>
-        <PageHeader />
-        <Main>
+      <Main>
+        <BrowserRouter>
           <Routes>
-            <Route path={"/projects"} element={<ProjectListScreen />} />
-            <Route
-              path={"/projects/:projectId/*"}
-              element={<ProjectScreen />}
-            />
-            <Route path="*" element={<Navigate to={"/projects"} />} />
+            <Route path="/projects" element={<Layout />}>
+              <Route index element={<ProjectListScreen />} />
+              <Route path={":projectId/*"} element={<ProjectScreen />} />
+            </Route>
+
+            {/* <Route path="*" element={"/projects"} /> */}
           </Routes>
-        </Main>
-        <ProjectModal />
-      </Router>
+        </BrowserRouter>
+      </Main>
     </Container>
+  );
+};
+
+const Layout = () => {
+  return (
+    <>
+      <PageHeader />
+      <Outlet />
+      <ProjectModal />
+    </>
   );
 };
 
@@ -40,22 +48,24 @@ export const AuthenticatedApp = () => {
 
 const PageHeader = () => {
   return (
-    <Header between={true}>
-      <HeaderLeft gap={true}>
-        <ButtonNoPadding
-          style={{ padding: 0 }}
-          type={"link"}
-          onClick={resetRoute}
-        >
-          <SoftwareLogo width={"4rem"} color={"rgb(38, 132, 255)"} />
-        </ButtonNoPadding>
-        <ProjectPopover />
-        <span>User</span>
-      </HeaderLeft>
-      <HeaderRight>
-        <User />
-      </HeaderRight>
-    </Header>
+    <>
+      <Header between={true}>
+        <HeaderLeft gap={true}>
+          <ButtonNoPadding
+            style={{ padding: 0 }}
+            type={"link"}
+            onClick={resetRoute}
+          >
+            <SoftwareLogo width={"4rem"} color={"rgb(38, 132, 255)"} />
+          </ButtonNoPadding>
+          <ProjectPopover />
+          <span>User</span>
+        </HeaderLeft>
+        <HeaderRight>
+          <User />
+        </HeaderRight>
+      </Header>
+    </>
   );
 };
 
