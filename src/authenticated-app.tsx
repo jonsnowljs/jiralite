@@ -7,7 +7,7 @@ import { Button, Dropdown, Menu } from "antd";
 import { userInfo } from "os";
 import { Outlet, Route, Router, Routes } from "react-router";
 
-import ProjectScreen from "screens/project";
+import { ProjectScreen } from "screens/project";
 import { resetRoute } from "utils";
 import { useState } from "react";
 import ProjectModal from "screens/ProjectList/ProjectModal";

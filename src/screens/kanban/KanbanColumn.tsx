@@ -21,16 +21,23 @@ const TaskTypeIcon = ({ id }: { id: number }) => {
     return <BugIcon />;
   }
 };
-
+/**
+ *
+ * @param kanban object
+ * @returns
+ */
 export const KanbanColumn = ({ kanban }: { kanban: Kanban }) => {
   // useTasksSearchParams()
-  const { data: allTasks } = useTasks();
-  console.log(allTasks);
+  const { data: allTasks } = useTasks(useTasksSearchParams());
   const tasks = allTasks?.filter((task) => task.kanbanId === kanban.id);
+  console.log(useTasksSearchParams());
+  console.log("allTasks", allTasks);
+  console.log("tasks", tasks);
   return (
     <Container>
       <h3>{kanban.name}</h3>
       <TaskContainer>
+        {console.log("tasks", tasks)}
         {tasks?.map((task) => (
           <Card style={{ marginBottom: "0.5rem" }} key={task.id}>
             <div>{task.name}</div>
