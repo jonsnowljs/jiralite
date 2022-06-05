@@ -19,6 +19,7 @@ export const http = async (
   { data, token, headers, ...customConfig }: Config = {}
 ) => {
   const apiurl = process.env.REACT_APP_API_URL;
+  console.log(apiurl);
 
   // method default is GET, customConfig can replace it
   const config = {
