@@ -1,16 +1,28 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Routes, Route, Navigate } from "react-router";
+import { Routes, Route, Navigate, useLocation } from "react-router";
 import EpicScreen from "screens/Epic";
 import { KanbanScreen } from "screens/kanban";
 import { ScreenContainer } from "components/lib";
 import styled from "@emotion/styled";
 import { Menu } from "antd";
+
+/**
+ * check what's the router in the end is epic or kanban, used to maintain the menu selected after refresh
+ * @returns  kanban or epic in route
+ */
+const useRouteType = () => {
+  const units = useLocation().pathname.split("/");
+  return units[units.length - 1];
+};
+
 export const ProjectScreen = () => {
+  const routeType = useRouteType();
+  console.log(routeType);
   return (
     <Container>
       <Aside>
-        <Menu mode={"inline"}>
+        <Menu mode={"inline"} selectedKeys={[routeType]}>
           <Menu.Item key={"kanban"}>
             <Link to={"kanban"}>Kanban</Link>
           </Menu.Item>
@@ -36,6 +48,7 @@ const Aside = styled.aside`
 `;
 const Main = styled.div`
   box-shadow: -5px 0 5px -5px rgba(0, 0, 0, 0.1);
+  display: flex;
 `;
 
 const Container = styled.div`

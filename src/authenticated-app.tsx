@@ -21,11 +21,13 @@ export const AuthenticatedApp = () => {
       <Main>
         <BrowserRouter>
           <Routes>
-            <Route path="/projects" element={<Layout />}>
+            <Route path="/" element={<Layout />}>
               <Route index element={<ProjectListScreen />} />
-              <Route path={":projectId/*"} element={<ProjectScreen />} />
+              <Route
+                path={"projects/:projectId/*"}
+                element={<ProjectScreen />}
+              />
             </Route>
-
             {/* <Route path="*" element={"/projects"} /> */}
           </Routes>
         </BrowserRouter>
@@ -106,4 +108,10 @@ const Header = styled(Row)`
 const HeaderLeft = styled(Row)``;
 const HeaderRight = styled.div``;
 
-const Main = styled.main``;
+const Main = styled.main`
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100vh;
+  flex: 1;
+`;

@@ -1,10 +1,7 @@
-import { useCallback, useEffect } from "react";
-import { QueryKey, useMutation, useQuery, useQueryClient } from "react-query";
+import { QueryKey, useMutation, useQuery } from "react-query";
 import { Project } from "types/Project";
 import { cleanObject } from "utils";
 import { useHttp } from "./http";
-import { useAsync } from "./useAsync";
-import { useProjectsSearchParams } from "../screens/ProjectList/util";
 import { useAddConfig, useEditConfig } from "./useOptimisticOptions";
 
 /**
