@@ -1,6 +1,6 @@
 import { Dropdown, Menu, Table, TableProps } from "antd";
 import { ButtonNoPadding } from "components/lib";
-import { Pin } from "components/pin";
+import { Pin } from "components/Pin";
 import dayjs from "dayjs";
 import React from "react";
 // react-router-dom and react-router's relationship, react-router is used to control the router states. react-router-dom will use the router states calculated by react-router
