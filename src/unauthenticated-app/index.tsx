@@ -1,4 +1,4 @@
-import { Button, Card, Divider, Typography } from "antd";
+import { Button, Card, Divider } from "antd";
 import { useState } from "react";
 import { LoginScreen } from "./login";
 import { RegisterScreen } from "./register";
@@ -6,14 +6,12 @@ import styled from "@emotion/styled";
 import logo from "assets/logo.svg";
 import left from "assets/left.svg";
 import right from "assets/right.svg";
-import { useDocumentTitle } from "utils";
 import { ErrorBox } from "components/lib";
 
 export const UnauthenticatedApp = () => {
   const [isRegister, setIsRegister] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
-  // useDocumentTitle("Please register first");
   return (
     <Container style={{ display: "flex", justifyContent: "center" }}>
       <Header />
